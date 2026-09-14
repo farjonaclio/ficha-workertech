@@ -274,6 +274,43 @@ button.send[disabled]{opacity:.6; cursor:default; box-shadow:none}
 footer.foot{border-top:1px solid var(--line); background:var(--surface); padding-block:24px; margin-top:56px}
 footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:space-between; font-size:12.5px; color:var(--muted)}
 
+
+/* ---------- obligatoria ---------- */
+.req{
+  display:inline-block; margin-left:8px; font-size:11px; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--crit);
+  border:1px solid var(--crit-line); background:var(--crit-soft);
+  border-radius:99px; padding:2px 9px; vertical-align:middle;
+}
+.field.falta{
+  background:var(--crit-soft); border:1px solid var(--crit-line);
+  border-radius:12px; padding:14px; margin-inline:-14px;
+}
+
+/* ---------- mirada (post-envío) ---------- */
+.mirada{margin-top:44px; scroll-margin-top:66px; animation:entra .5s cubic-bezier(.2,.7,.3,1) both}
+.mirada-head{
+  border-radius:16px 16px 0 0; padding:28px 26px 24px;
+  background:linear-gradient(135deg, #0D3B49 0%, #16263A 100%); color:#FFFFFF;
+}
+.mirada-tag{
+  display:inline-block; font-size:11.5px; font-weight:500; letter-spacing:.14em;
+  text-transform:uppercase; color:#1CE56D; margin-bottom:10px;
+}
+.mirada-head h2{color:#FFFFFF; font-size:26px; margin:0 0 10px}
+.mirada-head p{margin:0; color:#BFD0DA; font-size:15px; max-width:58ch; line-height:1.55}
+.mirada .card{margin-top:0; border-radius:0 0 14px 14px}
+.mirada #btn-mirada{margin-top:24px; align-self:flex-start}
+.mirada .sent{
+  margin-top:16px; background:var(--accent-soft); border-color:var(--accent-line);
+  color:var(--ink);
+}
+.mirada .escala label{flex:1 1 0}
+@media(max-width:620px){
+  .mirada .escala{flex-wrap:wrap}
+  .mirada .escala label{flex:1 1 30%; min-width:88px}
+}
+
 @media (prefers-reduced-motion:reduce){ *{transition:none !important; animation:none !important} }
 </style>
 
@@ -286,8 +323,8 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     </div>
 
     <div class="hero">
-      <h1>Cómo funcionó <em>su solución</em> en la práctica</h1>
-      <p class="lede">Cinco minutos, una ficha por solución. No hay respuestas correctas: lo único que nos complica es no saber qué pasó.</p>
+      <h1>Cómo operó el <em>programa gigES</em> en la práctica</h1>
+      <p class="lede">Cinco minutos, una ficha por startup. No hay respuestas correctas: lo que queremos saber en este primer espacio es, de primera voz, cómo operó el programa en la realidad.</p>
       <div class="pills">
         <span class="pill"><b>6</b> secciones</span>
         <span class="pill"><b>~5</b> minutos</span>
@@ -315,12 +352,12 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 <div class="wrap">
 
 <section id="s1" style="--c:#00718A; --tint:var(--accent-soft)">
-  <div class="shead"><span class="snum">1</span><h2>Su solución</h2></div>
+  <div class="shead"><span class="snum">1</span><h2>Su startup</h2></div>
   <p class="shint">Lo mínimo para saber de quién es esta ficha.</p>
   <div class="card">
     <div class="row">
       <div class="field">
-        <label class="q" for="empresa">Empresa o solución</label>
+        <label class="q" for="empresa">Nombre de la startup</label>
         <input type="text" id="empresa" placeholder="Nombre con el que se les conoce">
       </div>
       <div class="field">
@@ -329,17 +366,17 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
       </div>
     </div>
     <div class="field">
-      <label class="q" for="servicio">¿Qué recibía concretamente el trabajador?</label>
+      <label class="q" for="servicio">¿Qué recibía concretamente el beneficiario?</label>
       <p class="help">En una o dos líneas: qué le llegaba a la persona.</p>
       <textarea id="servicio" placeholder="Un seguro, capacitación, una billetera digital, pedidos, financiamiento…"></textarea>
     </div>
     <div class="row">
       <div class="field">
-        <label class="q" for="inicio">¿Desde cuándo operó en el proyecto?</label>
+        <label class="q" for="inicio">¿Desde cuándo participaron en el programa?</label>
         <input type="text" id="inicio" placeholder="Mes y año, aproximado">
       </div>
       <div class="field">
-        <label class="q" for="total">¿A cuántas personas llegaron?</label>
+        <label class="q" for="total">¿A cuántos beneficiarios llegaron?</label>
         <input type="text" id="total" placeholder="Un número aproximado está bien">
       </div>
     </div>
@@ -348,10 +385,11 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
 <section id="s2" style="--c:#00718A; --tint:var(--accent-soft)">
   <div class="shead"><span class="snum">2</span><h2>A quiénes llegaron</h2></div>
-  <p class="shint">El perfil real de su gente, no el del documento de proyecto.</p>
+  <p class="shint">El perfil real de los beneficiarios, no el del documento de proyecto.</p>
   <div class="card">
     <div class="field">
-      <p class="q">¿Qué tipo de trabajadores atendieron?</p>
+      <p class="q">¿Qué tipo de emprendedores atendieron?</p>
+      <p class="help">Puede marcar todas las que correspondan.</p>
       <div class="opts">
         <label class="opt"><input type="checkbox" name="tipo" value="Plataformas digitales"><span>Repartidores, conductores y otros de plataformas digitales</span></label>
         <label class="opt"><input type="checkbox" name="tipo" value="Oficios y servicios"><span>Oficios y servicios: electricidad, belleza, reparaciones, cuidados</span></label>
@@ -366,22 +404,24 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
         <input type="text" id="territorio" placeholder="Donde se concentró la mayoría">
       </div>
       <div class="field">
-        <label class="q" for="mujeres">¿Cuántas mujeres, aproximadamente?</label>
-        <input type="text" id="mujeres" placeholder="Un porcentaje o una impresión">
+        <label class="q" for="mujeres">¿Cuántas mujeres atendieron?</label>
+        <p class="help">Un porcentaje o un número, lo que tenga a mano.</p>
+        <input type="text" id="mujeres" placeholder="Por ejemplo: 45% o unas 300">
       </div>
     </div>
   </div>
 </section>
 
-<section id="s3" style="--c:#C4004F; --tint:var(--crit-soft)">
-  <div class="shead"><span class="snum">3</span><h2>Cómo decidían quién entraba</h2></div>
+<section id="s3" class="critica" style="--c:#C4004F; --tint:var(--crit-soft)">
+  <div class="shead"><span class="snum">3</span><h2>Cómo se decidía quién entraba</h2></div>
   <p class="shint">Si hay una sección que vale la pena responder bien, es esta.</p>
   <div class="callout">
-    <b>Por qué preguntamos esto.</b> Para saber si el proyecto cambió algo, tenemos que comparar a quienes recibieron el servicio con personas parecidas que no alcanzaron a recibirlo. Si alguna vez hubo más interesados que capacidad, esas personas son exactamente a quienes necesitamos encontrar.
+    <b>Por qué preguntamos esto.</b> Para saber si el programa cambió algo, tenemos que comparar a quienes recibieron el servicio con personas parecidas que no alcanzaron a recibirlo. Si alguna vez hubo más interesados que capacidad, esas personas son exactamente a quienes necesitamos encontrar.
   </div>
   <div class="card">
     <div class="field">
       <p class="q">Cuando una persona quería participar…</p>
+      <p class="help">Puede marcar todas las que correspondan.</p>
       <div class="opts">
         <label class="opt"><input type="checkbox" name="mec" value="Entraban todos"><span>Entraban todos los que se inscribían</span></label>
         <label class="opt"><input type="checkbox" name="mec" value="Cupos limitados"><span>Había cupos limitados</span></label>
@@ -390,8 +430,13 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
         <label class="opt"><input type="checkbox" name="mec" value="Sorteo"><span>Hubo sorteo o selección entre postulantes</span></label>
       </div>
     </div>
-    <div class="field">
-      <p class="q">¿Quedó registro de quienes quisieron entrar y no fueron atendidos?</p>
+    <div class="field" id="campo-sorteo" hidden>
+      <label class="q" for="sorteo">¿Sobre qué lista se hizo el sorteo y cómo se realizó?</label>
+      <p class="help">Quiénes entraban en el sorteo, cómo se eligió y si quedó registro del resultado.</p>
+      <textarea id="sorteo" placeholder="Por ejemplo: sobre los inscritos del formulario de marzo, se eligieron 40 al azar en planilla"></textarea>
+    </div>
+    <div class="field obligatorio" id="campo-noatendidos">
+      <p class="q">¿Quedó registro de quienes quisieron participar y no fueron atendidos? <span class="req">Obligatoria</span></p>
       <p class="help">Sirve aunque esté incompleto, en una planilla suelta o en capturas del formulario.</p>
       <div class="opts">
         <label class="opt"><input type="radio" name="noatendidos" value="Sí, tenemos ese registro"><span>Sí, tenemos ese registro</span></label>
@@ -409,150 +454,18 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 </section>
 
 <section id="s4" style="--c:#00718A; --tint:var(--accent-soft)">
-  <div class="shead"><span class="snum">4</span><h2>Llegar a los trabajadores</h2></div>
-  <p class="shint">Vamos a encuestar y a conversar con las personas que ustedes atendieron.</p>
+  <div class="shead"><span class="snum">4</span><h2>Qué registros guardan</h2></div>
+  <p class="shint">Hoy no necesitamos los datos. Solo saber qué existe.</p>
   <div class="card">
     <div class="field">
-      <p class="q">¿Podrían ser puente para invitarlos?</p>
-      <p class="help">Por ejemplo, enviando un mensaje de presentación a su base antes de que los contactemos.</p>
+      <p class="q">¿De qué personas queda registro en su sistema?</p>
+      <p class="help">Puede marcar las dos.</p>
       <div class="opts">
-        <label class="opt"><input type="radio" name="puente" value="Sí, sin problema"><span>Sí, sin problema</span></label>
-        <label class="opt"><input type="radio" name="puente" value="Sí, con condiciones"><span>Sí, con condiciones que conversaríamos</span></label>
-        <label class="opt"><input type="radio" name="puente" value="Contacto directo"><span>Preferimos que los contacten directamente</span></label>
-        <label class="opt"><input type="radio" name="puente" value="Hay que consultarlo"><span>Hay que consultarlo internamente</span></label>
+        <label class="opt"><input type="checkbox" name="quien" value="Inscritas que usaron el servicio"><span>Personas inscritas que usaron el servicio</span></label>
+        <label class="opt"><input type="checkbox" name="quien" value="Postulantes no seleccionados"><span>Postulantes que no fueron seleccionados</span></label>
+        <label class="opt"><input type="checkbox" name="quien" value="Ninguno"><span>Ninguno de los dos</span></label>
       </div>
     </div>
-    <div class="field">
-      <p class="q">¿Cuál es la mejor forma de llegar a su gente?</p>
-      <div class="opts">
-        <label class="opt"><input type="checkbox" name="via" value="WhatsApp"><span>WhatsApp</span></label>
-        <label class="opt"><input type="checkbox" name="via" value="Llamada"><span>Llamada telefónica</span></label>
-        <label class="opt"><input type="checkbox" name="via" value="Dentro de la app"><span>Dentro de nuestra propia aplicación o plataforma</span></label>
-        <label class="opt"><input type="checkbox" name="via" value="Presencial"><span>Presencial, donde trabajan</span></label>
-        <label class="opt"><input type="checkbox" name="via" value="Líderes"><span>A través de líderes o dirigentes del gremio</span></label>
-      </div>
-    </div>
-    <div class="field">
-      <p class="q">Grupos focales: ¿podrían ayudarnos a convocar entre 8 y 10 personas?</p>
-      <div class="opts">
-        <label class="opt"><input type="radio" name="focal" value="Sí"><span>Sí, podemos convocarlas</span></label>
-        <label class="opt"><input type="radio" name="focal" value="Podemos difundir"><span>Podemos difundir, sin asegurar asistencia</span></label>
-        <label class="opt"><input type="radio" name="focal" value="Difícil"><span>Sería difícil</span></label>
-        <label class="opt"><input type="radio" name="focal" value="Hay que consultarlo"><span>Hay que consultarlo internamente</span></label>
-      </div>
-    </div>
-    <div class="field">
-      <label class="q" for="puntos">¿Hay lugares físicos donde se les puede encontrar?</label>
-      <p class="help">Mercados, paraderos, centros de acopio, ferias, puntos de espera.</p>
-      <input type="text" id="puntos" placeholder="Lugares y, si aplica, días u horarios">
-    </div>
-  </div>
-</section>
-
-<section id="s5" style="--c:#00718A; --tint:var(--accent-soft)">
-  <div class="shead"><span class="snum">5</span><h2>Cómo les fue</h2></div>
-  <p class="shint">Su propia lectura, de 1 a 5. No hay respuesta esperada: nos sirve tanto un 2 como un 5.</p>
-  <div class="card">
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-pertinencia"><span class="dim">Pertinencia</span>La solución respondía a una necesidad real de los trabajadores que atendimos.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-pertinencia">
-        <label><input type="radio" name="v_pertinencia" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_pertinencia" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_pertinencia" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_pertinencia" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_pertinencia" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-eficacia"><span class="dim">Eficacia</span>La solución logró lo que se propuso lograr.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-eficacia">
-        <label><input type="radio" name="v_eficacia" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_eficacia" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_eficacia" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_eficacia" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_eficacia" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-cobertura"><span class="dim">Cobertura</span>Llegamos a la cantidad de personas que esperábamos llegar.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-cobertura">
-        <label><input type="radio" name="v_cobertura" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_cobertura" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_cobertura" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_cobertura" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_cobertura" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-sostenib"><span class="dim">Sostenibilidad</span>La solución puede seguir operando sin el financiamiento del proyecto.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-sostenib">
-        <label><input type="radio" name="v_sostenib" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_sostenib" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_sostenib" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_sostenib" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_sostenib" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-coordina"><span class="dim">Coordinación</span>La coordinación con CasaTIC y el proyecto funcionó bien.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-coordina">
-        <label><input type="radio" name="v_coordina" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_coordina" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_coordina" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_coordina" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_coordina" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-  </div>
-  <p class="shint" style="margin-top:26px">Y sobre lo que pueden aportar hoy a la evaluación:</p>
-  <div class="card" style="margin-top:12px">
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-registros"><span class="dim">Calidad de sus registros</span>Nuestros registros de personas atendidas están completos y ordenados.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-registros">
-        <label><input type="radio" name="v_registros" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_registros" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_registros" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_registros" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_registros" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-trazab"><span class="dim">Trazabilidad</span>Podemos identificar a quienes quisieron entrar y no fueron atendidos.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-trazab">
-        <label><input type="radio" name="v_trazab" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_trazab" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_trazab" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_trazab" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_trazab" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-vinculo"><span class="dim">Vínculo vigente</span>Todavía tenemos contacto activo con los trabajadores que atendimos.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-vinculo">
-        <label><input type="radio" name="v_vinculo" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_vinculo" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_vinculo" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_vinculo" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_vinculo" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-    <div class="escala-item">
-      <p class="escala-q" id="lbl-convocar"><span class="dim">Capacidad de convocar</span>Podríamos convocar a nuestros usuarios a una actividad presencial.</p>
-      <div class="escala" role="radiogroup" aria-labelledby="lbl-convocar">
-        <label><input type="radio" name="v_convocar" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
-        <label><input type="radio" name="v_convocar" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
-        <label><input type="radio" name="v_convocar" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
-        <label><input type="radio" name="v_convocar" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
-        <label><input type="radio" name="v_convocar" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="s6" style="--c:#00718A; --tint:var(--accent-soft)">
-  <div class="shead"><span class="snum">6</span><h2>Qué guardan y con quién seguimos</h2></div>
-  <p class="shint">Hoy no necesitamos los datos. Solo saber qué existe y a quién preguntarle.</p>
-  <div class="card">
     <div class="field">
       <p class="q">¿Qué datos guardan de cada persona?</p>
       <div class="opts">
@@ -566,9 +479,58 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
         <label class="opt"><input type="checkbox" name="campos" value="Uso del servicio"><span>Historial de uso del servicio</span></label>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="s5" style="--c:#00718A; --tint:var(--accent-soft)">
+  <div class="shead"><span class="snum">5</span><h2>Llegar a los beneficiarios</h2></div>
+  <p class="shint">Vamos a encuestar y a conversar con las personas que ustedes atendieron.</p>
+  <div class="card">
     <div class="field">
-      <p class="q">Persona que ve el tema de datos en su empresa</p>
-      <p class="help">Con quien coordinaremos de aquí en adelante. Puede ser usted mismo.</p>
+      <p class="q">¿Pueden ser el canal de contacto con los beneficiarios?</p>
+      <p class="help">Por ejemplo, enviándoles un mensaje de presentación antes de que los contactemos.</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="puente" value="Sí, sin problema"><span>Sí, sin problema</span></label>
+        <label class="opt"><input type="radio" name="puente" value="Sí, con condiciones"><span>Sí, con condiciones que conversaríamos</span></label>
+        <label class="opt"><input type="radio" name="puente" value="Contacto directo"><span>Preferimos que los contacten directamente</span></label>
+        <label class="opt"><input type="radio" name="puente" value="Hay que consultarlo"><span>Hay que consultarlo internamente</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <p class="q">¿Cuál es la mejor forma de llegar a los beneficiarios?</p>
+      <p class="help">Lo que de verdad funciona, por experiencia suya. Puede marcar varias.</p>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="via" value="WhatsApp"><span>WhatsApp</span></label>
+        <label class="opt"><input type="checkbox" name="via" value="Llamada"><span>Llamada telefónica</span></label>
+        <label class="opt"><input type="checkbox" name="via" value="Dentro de la app"><span>Dentro de nuestra propia aplicación o plataforma</span></label>
+        <label class="opt"><input type="checkbox" name="via" value="Presencial"><span>Presencial, donde trabajan</span></label>
+        <label class="opt"><input type="checkbox" name="via" value="Líderes"><span>A través de líderes o dirigentes del gremio</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <p class="q">Grupos focales: ¿podrían ayudarnos a convocar entre 8 y 10 beneficiarios?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="focal" value="Sí"><span>Sí, podemos convocarlos</span></label>
+        <label class="opt"><input type="radio" name="focal" value="Podemos difundir"><span>Podemos difundir, sin asegurar asistencia</span></label>
+        <label class="opt"><input type="radio" name="focal" value="Difícil"><span>Sería difícil</span></label>
+        <label class="opt"><input type="radio" name="focal" value="Hay que consultarlo"><span>Hay que consultarlo internamente</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="q" for="puntos">¿Hay lugares donde se pueda encontrar a los beneficiarios?</label>
+      <p class="help">Nos sirve para dos cosas: aplicar encuestas presenciales donde el teléfono no alcanza, y elegir sede para los grupos focales. Mercados, paraderos, centros de acopio, ferias, puntos de espera.</p>
+      <input type="text" id="puntos" placeholder="Lugares y, si aplica, días u horarios">
+    </div>
+  </div>
+</section>
+
+<section id="s6" style="--c:#00718A; --tint:var(--accent-soft)">
+  <div class="shead"><span class="snum">6</span><h2>Para seguir en comunicación</h2></div>
+  <p class="shint">Con quién de su equipo coordinamos de aquí en adelante.</p>
+  <div class="card">
+    <div class="field">
+      <p class="q">¿Con quién de su equipo podemos seguir en contacto?</p>
+      <p class="help">Puede ser usted mismo.</p>
       <div class="row">
         <input type="text" id="contacto-nombre" placeholder="Nombre">
         <input type="email" id="contacto-correo" placeholder="Correo">
@@ -585,15 +547,129 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
   </div>
 </section>
 
-<div class="closing">
+<div class="closing" id="closing">
   <h2>Listo para enviar</h2>
   <p id="closing-txt">Sus respuestas se van guardando mientras escribe. Al enviar nos llega la ficha completa; después puede volver a este enlace, corregir y enviar de nuevo.</p>
   <button class="send" id="btn-send" type="button">Enviar la ficha</button>
   <div class="sent" id="sent" hidden></div>
 </div>
 
+<div class="mirada" id="mirada" hidden>
+  <div class="mirada-head">
+    <span class="mirada-tag">Una última cosa</span>
+    <h2>¿Qué mirada tiene del programa?</h2>
+    <p>Su ficha ya está con nosotros. Si tiene cinco minutos más, nos interesa su lectura del programa. Es opcional, y no hay respuesta esperada: nos sirve tanto un 2 como un 5. Si algo no le consta, marque «No sé / no aplica».</p>
+  </div>
+  <div class="card">
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-pertinencia"><span class="dim">Pertinencia</span>El programa respondía a una necesidad real de los beneficiarios que atendimos.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-pertinencia">
+          <label><input type="radio" name="v_pertinencia" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_pertinencia" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_pertinencia" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_pertinencia" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_pertinencia" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_pertinencia" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-eficacia"><span class="dim">Eficacia</span>El programa logró lo que se propuso lograr.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-eficacia">
+          <label><input type="radio" name="v_eficacia" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_eficacia" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_eficacia" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_eficacia" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_eficacia" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_eficacia" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-cobertura"><span class="dim">Cobertura</span>Se llegó a la cantidad de beneficiarios que se esperaba.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-cobertura">
+          <label><input type="radio" name="v_cobertura" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_cobertura" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_cobertura" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_cobertura" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_cobertura" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_cobertura" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-sostenib"><span class="dim">Sostenibilidad</span>Lo que se construyó puede seguir operando sin el financiamiento del programa.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-sostenib">
+          <label><input type="radio" name="v_sostenib" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_sostenib" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_sostenib" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_sostenib" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_sostenib" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_sostenib" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-coordina"><span class="dim">Coordinación</span>La coordinación con CasaTIC y el programa funcionó bien.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-coordina">
+          <label><input type="radio" name="v_coordina" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_coordina" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_coordina" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_coordina" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_coordina" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_coordina" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+  </div>
+  <p class="shint" style="margin:24px 0 0">Y sobre lo que pueden aportar a la evaluación:</p>
+  <div class="card" style="margin-top:12px">
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-registros"><span class="dim">Calidad de sus registros</span>Nuestros registros de beneficiarios están completos y ordenados.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-registros">
+          <label><input type="radio" name="v_registros" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_registros" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_registros" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_registros" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_registros" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_registros" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-trazab"><span class="dim">Trazabilidad</span>Podemos identificar a quienes quisieron entrar y no fueron atendidos.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-trazab">
+          <label><input type="radio" name="v_trazab" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_trazab" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_trazab" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_trazab" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_trazab" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_trazab" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-vinculo"><span class="dim">Vínculo vigente</span>Todavía tenemos contacto activo con los beneficiarios que atendimos.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-vinculo">
+          <label><input type="radio" name="v_vinculo" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_vinculo" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_vinculo" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_vinculo" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_vinculo" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_vinculo" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+      <div class="escala-item">
+        <p class="escala-q" id="lbl-convocar"><span class="dim">Capacidad de convocar</span>Podríamos convocar a los beneficiarios a una actividad presencial.</p>
+        <div class="escala" role="radiogroup" aria-labelledby="lbl-convocar">
+          <label><input type="radio" name="v_convocar" value="1"><span class="cara" aria-hidden="true">😕</span><span class="txt">Para nada</span></label>
+          <label><input type="radio" name="v_convocar" value="2"><span class="cara" aria-hidden="true">🙁</span><span class="txt">Poco</span></label>
+          <label><input type="radio" name="v_convocar" value="3"><span class="cara" aria-hidden="true">😐</span><span class="txt">Algo</span></label>
+          <label><input type="radio" name="v_convocar" value="4"><span class="cara" aria-hidden="true">🙂</span><span class="txt">Bastante</span></label>
+          <label><input type="radio" name="v_convocar" value="5"><span class="cara" aria-hidden="true">😄</span><span class="txt">Totalmente</span></label>
+          <label><input type="radio" name="v_convocar" value="NA"><span class="cara" aria-hidden="true">🤷</span><span class="txt">No sé / no aplica</span></label>
+        </div>
+      </div>
+  </div>
+  <button class="send" id="btn-mirada" type="button">Enviar mi mirada</button>
+  <div class="sent" id="sent-mirada" hidden></div>
+</div>
+
 <p class="aviso">
-  <b>Sobre los datos.</b> Esta ficha recoge información de su empresa y el contacto de la persona con quien coordinaremos. No pide ni debe incluir datos de los trabajadores que ustedes atendieron: esos se solicitan después, por el canal formal y con el acuerdo de tratamiento de datos que gestiona CasaTIC. Lo que escriba aquí se usa solo para esta evaluación.
+  <b>Sobre los datos.</b> Esta ficha recoge información de su startup y el contacto de la persona con quien coordinaremos. No pide ni debe incluir datos de los beneficiarios que ustedes atendieron: esos se solicitan después, por el canal formal y con el acuerdo de tratamiento de datos que gestiona CasaTIC. Lo que escriba aquí se usa solo para esta evaluación.
 </p>
 
 </div>
@@ -615,28 +691,29 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
      Pegue aquí la URL del Web App de Apps Script (termina en /exec).
      Mientras esté vacía, el botón enviará la ficha por correo.
      ================================================================ */
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbwC9ErZAGOB6NYbGVc5TfSguUanJ2EyW9u4UhtI-kyrhqkqwuv0l1lxHJhX1RXInxjg4g/exec";
+  var ENDPOINT = "";
   var CORREO = "farjona@cliodinamica.com";
 
   var FIELDS = ["empresa","persona","servicio","inicio","total","territorio","mujeres",
-    "fuera","puntos","contacto-nombre","contacto-correo","contacto-tel","contacto-cargo","libre"];
-  var RADIOS = ["noatendidos","puente","focal",
-    "v_pertinencia","v_eficacia","v_cobertura","v_sostenib","v_coordina",
+    "sorteo","fuera","puntos","contacto-nombre","contacto-correo","contacto-tel","contacto-cargo","libre"];
+  var RADIOS = ["noatendidos","puente","focal"];
+  var MIRADA = ["v_pertinencia","v_eficacia","v_cobertura","v_sostenib","v_coordina",
     "v_registros","v_trazab","v_vinculo","v_convocar"];
-  var CHECKS = ["tipo","mec","via","campos"];
+  var CHECKS = ["tipo","mec","quien","via","campos"];
 
   var ETIQUETAS = {
     empresa:"Empresa o solución", persona:"Quién responde",
-    servicio:"Qué recibía el trabajador", inicio:"Desde cuándo operó",
-    total:"A cuántas personas llegaron", tipo:"Tipo de trabajadores",
-    territorio:"Municipios o departamentos", mujeres:"Proporción de mujeres",
-    mec:"Cómo decidían quién entraba", noatendidos:"¿Hay registro de no atendidos?",
+    servicio:"Qué recibía el beneficiario", inicio:"Desde cuándo participó en el programa",
+    sorteo:"Sorteo: lista y procedimiento", quien:"De qué personas queda registro",
+    total:"A cuántos beneficiarios llegaron", tipo:"Tipo de emprendedores",
+    territorio:"Municipios o departamentos", mujeres:"Mujeres atendidas",
+    mec:"Cómo se decidía quién entraba", noatendidos:"¿Hay registro de no atendidos?",
     fuera:"Requisitos, cupos y quiénes quedaban fuera",
-    puente:"¿Pueden ser puente para la encuesta?", via:"Mejor forma de llegar a su gente",
+    puente:"¿Pueden ser canal de contacto?", via:"Mejor forma de llegar a los beneficiarios",
     focal:"Apoyo para convocar grupos focales", puntos:"Lugares físicos de encuentro",
     campos:"Datos que guardan de cada persona",
-    "contacto-nombre":"Contacto de datos · nombre", "contacto-correo":"Contacto de datos · correo",
-    "contacto-tel":"Contacto de datos · teléfono", "contacto-cargo":"Contacto de datos · cargo",
+    "contacto-nombre":"Contacto · nombre", "contacto-correo":"Contacto · correo",
+    "contacto-tel":"Contacto · teléfono", "contacto-cargo":"Contacto · cargo",
     libre:"Algo más que deberíamos saber",
     v_pertinencia:"Valoración 1-5 · Pertinencia", v_eficacia:"Valoración 1-5 · Eficacia",
     v_cobertura:"Valoración 1-5 · Cobertura", v_sostenib:"Valoración 1-5 · Sostenibilidad",
@@ -647,10 +724,11 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     v_convocar:"Valoración 1-5 · Capacidad de convocar"
   };
   var ORDEN = ["empresa","persona","servicio","inicio","total","tipo","territorio","mujeres",
-    "mec","noatendidos","fuera","puente","via","focal","puntos",
+    "mec","sorteo","noatendidos","fuera","quien","campos",
+    "puente","via","focal","puntos",
+    "contacto-nombre","contacto-correo","contacto-tel","contacto-cargo","libre",
     "v_pertinencia","v_eficacia","v_cobertura","v_sostenib","v_coordina",
-    "v_registros","v_trazab","v_vinculo","v_convocar",
-    "campos","contacto-nombre","contacto-correo","contacto-tel","contacto-cargo","libre"];
+    "v_registros","v_trazab","v_vinculo","v_convocar"];
 
   var LOCAL_KEY = "ficha-workertech-v2";
   var enSheets = !!(window.google && window.google.script && window.google.script.run);
@@ -671,7 +749,7 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
       var el = document.getElementById(id);
       if(el) d[id] = el.value.trim();
     });
-    RADIOS.forEach(function(n){
+    RADIOS.concat(MIRADA).forEach(function(n){
       var el = document.querySelector('input[name="'+n+'"]:checked');
       d[n] = el ? el.value : "";
     });
@@ -689,7 +767,7 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
       var el = document.getElementById(id);
       if(el && typeof d[id] === "string") el.value = d[id];
     });
-    RADIOS.forEach(function(n){
+    RADIOS.concat(MIRADA).forEach(function(n){
       if(!d[n]) return;
       var el = document.querySelector('input[name="'+n+'"][value="'+ CSS.escape(d[n]) +'"]');
       if(el) el.checked = true;
@@ -745,52 +823,35 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
   document.addEventListener("input", scheduleSave);
   document.addEventListener("change", scheduleSave);
 
+  /* ---------- sorteo condicional ---------- */
+  var campoSorteo = document.getElementById("campo-sorteo");
+  function revisarSorteo(){
+    var el = document.querySelector('input[name="mec"][value="Sorteo"]');
+    campoSorteo.hidden = !(el && el.checked);
+  }
+  document.addEventListener("change", function(e){
+    if(e.target && e.target.name === "mec") revisarSorteo();
+  });
+
   /* ---------- envío ---------- */
   var btn = document.getElementById("btn-send");
   var sentBox = document.getElementById("sent");
+  var bloqueMirada = document.getElementById("mirada");
+  var btnMirada = document.getElementById("btn-mirada");
+  var sentMirada = document.getElementById("sent-mirada");
   var TICK = '<svg class="tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">'
            + '<circle cx="12" cy="12" r="10"/><path d="M7.5 12.4l3 3 6-6.4"/></svg>';
 
-  function aviso(msg, conTick){
-    sentBox.hidden = false;
-    sentBox.innerHTML = (conTick ? TICK : "") + "<span>" + msg + "</span>";
+  function aviso(caja, msg, conTick){
+    caja.hidden = false;
+    caja.innerHTML = (conTick ? TICK : "") + "<span>" + msg + "</span>";
   }
 
-  function exito(empresa){
-    btn.textContent = "Ficha enviada";
-    btn.disabled = true;
-    aviso("Recibimos la ficha de <b>" + empresa + "</b>. Si necesita corregir algo, vuelva a este enlace, edite y envíe de nuevo.", true);
-  }
-  function fallo(){
-    btn.disabled = false;
-    btn.textContent = "Reintentar envío";
-    aviso("No se pudo enviar; puede ser la conexión. Sus respuestas están guardadas acá y no se perdieron: vuelva a intentarlo en un momento.", false);
-  }
-
-  btn.addEventListener("click", function(){
-    var d = read();
-    if(!d.empresa){
-      aviso("Falta el nombre de la empresa o solución, en la primera sección. Es lo único que necesitamos para identificar la ficha.", false);
-      document.getElementById("empresa").scrollIntoView({behavior:"smooth", block:"center"});
-      document.getElementById("empresa").focus();
-      return;
-    }
-    if(saveTimer) clearTimeout(saveTimer);
-    d.docId = docId;
-    d.enviada = new Date().toISOString();
-    try{ localSet(LOCAL_KEY, JSON.stringify(d)); }catch(e){}
-
-    btn.disabled = true;
-    btn.textContent = "Enviando…";
-
+  function enviar(d, alOk, alFallo){
     if(enSheets){
-      window.google.script.run
-        .withSuccessHandler(function(){ exito(d.empresa); })
-        .withFailureHandler(fallo)
-        .guardarFicha(d);
+      window.google.script.run.withSuccessHandler(alOk).withFailureHandler(alFallo).guardarFicha(d);
       return;
     }
-
     if(ENDPOINT){
       fetch(ENDPOINT, {
         method: "POST",
@@ -799,18 +860,72 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
       }).then(function(r){
         if(!r.ok) throw new Error("http");
         return r.text();
-      }).then(function(){ exito(d.empresa); }).catch(fallo);
+      }).then(alOk).catch(alFallo);
       return;
     }
-
-    // Sin endpoint configurado: la ficha se envía por correo, ya redactada.
+    // Sin destino configurado: la ficha se envía por correo, ya redactada.
     var url = "mailto:" + encodeURIComponent(CORREO)
             + "?subject=" + encodeURIComponent("Ficha WorkerTech — " + d.empresa)
             + "&body=" + encodeURIComponent(aTexto(d));
-    btn.disabled = false;
-    btn.textContent = "Enviar la ficha";
-    aviso("Abrimos su correo con la ficha ya escrita: solo tiene que apretar enviar.", true);
     window.location.href = url;
+    alOk();
+  }
+
+  btn.addEventListener("click", function(){
+    var d = read();
+    var campoNA = document.getElementById("campo-noatendidos");
+
+    if(!d.empresa){
+      aviso(sentBox, "Falta el nombre de la startup, en la primera sección. Es lo único que necesitamos para identificar la ficha.", false);
+      document.getElementById("empresa").scrollIntoView({behavior:"smooth", block:"center"});
+      document.getElementById("empresa").focus();
+      return;
+    }
+    if(!d.noatendidos){
+      campoNA.classList.add("falta");
+      aviso(sentBox, "Falta una respuesta obligatoria, en la sección 3: si quedó registro de quienes quisieron participar y no fueron atendidos. Es la pregunta que define la evaluación.", false);
+      campoNA.scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+    campoNA.classList.remove("falta");
+
+    if(saveTimer) clearTimeout(saveTimer);
+    d.docId = docId;
+    d.enviada = new Date().toISOString();
+    try{ localSet(LOCAL_KEY, JSON.stringify(d)); }catch(e){}
+
+    btn.disabled = true;
+    btn.textContent = "Enviando…";
+
+    enviar(d, function(){
+      btn.textContent = "Ficha enviada";
+      aviso(sentBox, "Recibimos la ficha de <b>" + d.empresa + "</b>. Si necesita corregir algo, vuelva a este enlace, edite y envíe de nuevo.", true);
+      bloqueMirada.hidden = false;
+      setTimeout(function(){
+        bloqueMirada.scrollIntoView({behavior:"smooth", block:"start"});
+      }, 500);
+    }, function(){
+      btn.disabled = false;
+      btn.textContent = "Reintentar envío";
+      aviso(sentBox, "No se pudo enviar; puede ser la conexión. Sus respuestas están guardadas acá y no se perdieron: vuelva a intentarlo en un momento.", false);
+    });
+  });
+
+  btnMirada.addEventListener("click", function(){
+    var d = read();
+    d.docId = docId;
+    d.enviada = new Date().toISOString();
+    try{ localSet(LOCAL_KEY, JSON.stringify(d)); }catch(e){}
+    btnMirada.disabled = true;
+    btnMirada.textContent = "Enviando…";
+    enviar(d, function(){
+      btnMirada.textContent = "Gracias";
+      aviso(sentMirada, "Listo. Con esto cerramos: nos vemos en la conversación de profundización.", true);
+    }, function(){
+      btnMirada.disabled = false;
+      btnMirada.textContent = "Reintentar";
+      aviso(sentMirada, "No se pudo enviar; puede ser la conexión. Vuelva a intentarlo en un momento.", false);
+    });
   });
 
   /* ---------- arranque ---------- */
