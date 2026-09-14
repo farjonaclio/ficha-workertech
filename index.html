@@ -161,7 +161,7 @@ h2{
 .q{font-weight:500; font-size:16px; margin:0}
 .help{font-size:13.5px; color:var(--muted); margin:-3px 0 2px}
 
-input[type=text], input[type=email], input[type=tel], textarea{
+input[type=text], input[type=email], input[type=tel], input[type=number], input[type=month], textarea{
   width:100%; font-family:var(--body); font-size:16px; color:var(--ink);
   background:var(--surface); border:1px solid var(--line); border-radius:10px;
   padding:11px 13px; transition:border-color .12s, box-shadow .12s;
@@ -172,6 +172,22 @@ input:focus, textarea:focus{
 }
 input::placeholder, textarea::placeholder{color:var(--muted); opacity:.8}
 .row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+
+/* ---------- número con unidad ---------- */
+.conunidad{display:flex; gap:8px; align-items:stretch}
+.conunidad input[type=number]{flex:1; min-width:0}
+.unidad{display:flex; gap:4px; flex:none}
+.unidad label{
+  display:grid; place-items:center; cursor:pointer; min-width:52px; padding:0 12px;
+  border:1px solid var(--line); border-radius:10px; background:var(--surface);
+  font-size:14.5px; color:var(--ink-2); transition:.12s; user-select:none;
+}
+.unidad input{position:absolute; opacity:0; width:0; height:0}
+.unidad label:has(input:checked){
+  border-color:var(--accent); background:var(--accent-soft); color:var(--accent); font-weight:500;
+}
+.unidad label:has(input:focus-visible){outline:2px solid var(--accent); outline-offset:2px}
+input[type=month]{min-height:46px}
 @media(max-width:560px){ .row{grid-template-columns:1fr} }
 
 /* ---------- opciones ---------- */
@@ -374,11 +390,13 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     <div class="row">
       <div class="field">
         <label class="q" for="inicio">¿Desde cuándo participaron en el programa?</label>
-        <input type="text" id="inicio" placeholder="Mes y año, aproximado">
+        <p class="help">Elija el mes y el año, aunque sea aproximado.</p>
+        <input type="month" id="inicio" min="2022-01" max="2026-12">
       </div>
       <div class="field">
         <label class="q" for="total">¿A cuántos beneficiarios llegaron?</label>
-        <input type="text" id="total" placeholder="Un número aproximado está bien">
+        <p class="help">Un número aproximado está bien.</p>
+        <input type="number" id="total" min="0" step="1" inputmode="numeric" placeholder="Ej.: 800">
       </div>
     </div>
   </div>
@@ -406,8 +424,14 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
       </div>
       <div class="field">
         <label class="q" for="mujeres">¿Cuántas mujeres atendieron?</label>
-        <p class="help">Un porcentaje o un número, lo que tenga a mano.</p>
-        <input type="text" id="mujeres" placeholder="Por ejemplo: 45% o unas 300">
+        <p class="help">Escriba el número y elija si es porcentaje o cantidad de personas.</p>
+        <div class="conunidad">
+          <input type="number" id="mujeres" min="0" step="1" inputmode="numeric" placeholder="Ej.: 45">
+          <div class="unidad" role="radiogroup" aria-label="Unidad">
+            <label><input type="radio" name="mujeres-unidad" value="%" checked><span>%</span></label>
+            <label><input type="radio" name="mujeres-unidad" value="personas"><span>N.º</span></label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -697,7 +721,7 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
   var FIELDS = ["empresa","persona","servicio","inicio","total","territorio","mujeres",
     "sorteo","fuera","puntos","contacto-nombre","contacto-correo","contacto-tel","contacto-cargo","libre"];
-  var RADIOS = ["noatendidos","puente","focal"];
+  var RADIOS = ["noatendidos","puente","focal","mujeres-unidad"];
   var MIRADA = ["v_pertinencia","v_eficacia","v_cobertura","v_sostenib","v_coordina",
     "v_registros","v_trazab","v_vinculo","v_convocar"];
   var CHECKS = ["tipo","mec","quien","via","campos"];
@@ -782,6 +806,27 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     });
   }
 
+  var MESES = ["enero","febrero","marzo","abril","mayo","junio",
+    "julio","agosto","septiembre","octubre","noviembre","diciembre"];
+
+  // Traduce lo que el formulario captura en formato de máquina a algo legible
+  // en la hoja: "2024-03" -> "marzo 2024"; 45 + "%" -> "45%".
+  function paraEnviar(d){
+    var c = {}, k;
+    for(k in d){ if(Object.prototype.hasOwnProperty.call(d, k)) c[k] = d[k]; }
+    if(c.inicio && /^\d{4}-\d{2}$/.test(c.inicio)){
+      var p = c.inicio.split("-");
+      c.inicio = MESES[parseInt(p[1], 10) - 1] + " " + p[0];
+    }
+    if(c.mujeres){
+      c.mujeres = c["mujeres-unidad"] === "personas"
+        ? c.mujeres + " personas"
+        : c.mujeres + "%";
+    }
+    delete c["mujeres-unidad"];
+    return c;
+  }
+
   function aTexto(d){
     var out = ["FICHA WORKERTECH — evaluación final gigES",
                "Solución: " + (d.empresa || "(sin nombre)"),
@@ -803,7 +848,10 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
   function progress(){
     var d = read(), total = 0, done = 0;
-    FIELDS.concat(RADIOS).forEach(function(k){ total++; if(d[k]) done++; });
+    FIELDS.concat(RADIOS).forEach(function(k){
+      if(k === "mujeres-unidad") return;
+      total++; if(d[k]) done++;
+    });
     CHECKS.forEach(function(k){ total++; if(d[k] && d[k].length) done++; });
     var p = Math.round(done / total * 100);
     bar.style.width = p + "%";
@@ -901,14 +949,16 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     campoNA.classList.remove("falta");
 
     if(saveTimer) clearTimeout(saveTimer);
-    d.docId = docId;
-    d.enviada = new Date().toISOString();
     try{ localSet(LOCAL_KEY, JSON.stringify(d)); }catch(e){}
+
+    var env = paraEnviar(d);
+    env.docId = docId;
+    env.enviada = new Date().toISOString();
 
     btn.disabled = true;
     btn.textContent = "Enviando…";
 
-    enviar(d, function(){
+    enviar(env, function(){
       btn.textContent = "Ficha enviada";
       aviso(sentBox, "Recibimos la ficha de <b>" + d.empresa + "</b>. Si necesita corregir algo, vuelva a este enlace, edite y envíe de nuevo.", true);
       bloqueMirada.hidden = false;
@@ -924,12 +974,13 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
   btnMirada.addEventListener("click", function(){
     var d = read();
-    d.docId = docId;
-    d.enviada = new Date().toISOString();
     try{ localSet(LOCAL_KEY, JSON.stringify(d)); }catch(e){}
+    var env = paraEnviar(d);
+    env.docId = docId;
+    env.enviada = new Date().toISOString();
     btnMirada.disabled = true;
     btnMirada.textContent = "Enviando…";
-    enviar(d, function(){
+    enviar(env, function(){
       btnMirada.textContent = "Gracias";
       aviso(sentMirada, "Listo. Con esto cerramos: nos vemos en la conversación de profundización.", true);
     }, function(){
