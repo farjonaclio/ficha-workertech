@@ -44,6 +44,7 @@
 }
 
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--body); font-size:16.5px; line-height:1.55;
@@ -853,22 +854,32 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
       return;
     }
     if(ENDPOINT){
-      fetch(ENDPOINT, {
-        method: "POST",
-        headers: {"Content-Type": "text/plain;charset=utf-8"},
-        body: JSON.stringify(d)
-      }).then(function(r){
-        if(!r.ok) throw new Error("http");
-        return r.text();
-      }).then(alOk).catch(alFallo);
+      var cuerpo = JSON.stringify(d);
+      var cab = {"Content-Type": "text/plain;charset=utf-8"};
+      fetch(ENDPOINT, { method: "POST", headers: cab, body: cuerpo })
+        .then(function(r){
+          if(!r.ok) throw new Error("http " + r.status);
+          return r.text();
+        })
+        .then(alOk)
+        .catch(function(){
+          // Segundo intento sin lectura de respuesta: el servidor igual recibe la ficha.
+          fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: cab, body: cuerpo })
+            .then(function(){ alOk(); })
+            .catch(function(){ porCorreo(d); });
+        });
       return;
     }
-    // Sin destino configurado: la ficha se envía por correo, ya redactada.
+    porCorreo(d);
+    alOk();
+  }
+
+  // Respaldo: abre el correo con la ficha ya redactada.
+  function porCorreo(d){
     var url = "mailto:" + encodeURIComponent(CORREO)
-            + "?subject=" + encodeURIComponent("Ficha WorkerTech — " + d.empresa)
+            + "?subject=" + encodeURIComponent("Ficha WorkerTech — " + (d.empresa || ""))
             + "&body=" + encodeURIComponent(aTexto(d));
     window.location.href = url;
-    alOk();
   }
 
   btn.addEventListener("click", function(){
